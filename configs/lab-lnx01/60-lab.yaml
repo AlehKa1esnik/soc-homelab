@@ -1,0 +1,14 @@
+# /etc/netplan/60-lab.yaml на lab-lnx01 (права 600).
+# Обе карты привязаны по MAC, поэтому имена интерфейсов не важны.
+# labnat — карта «на горячую»: обычно её нет; optional — загрузка её не ждёт.
+network:
+  version: 2
+  ethernets:
+    lab:
+      match: {macaddress: "52:54:00:22:72:1a"}
+      addresses: [10.10.10.30/24]
+      nameservers: {addresses: [10.10.10.10], search: [lab.internal]}
+    labnat:
+      match: {macaddress: "52:54:00:09:0f:04"}
+      dhcp4: true
+      optional: true

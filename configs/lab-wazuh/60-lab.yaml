@@ -1,0 +1,13 @@
+# /etc/netplan/60-lab.yaml на lab-wazuh (права 600).
+# Обе карты привязаны по MAC; labnat — карта «на горячую», optional.
+network:
+  version: 2
+  ethernets:
+    lab:
+      match: {macaddress: "52:54:00:09:94:99"}
+      addresses: [10.10.10.40/24]
+      nameservers: {addresses: [10.10.10.10], search: [lab.internal]}
+    labnat:
+      match: {macaddress: "52:54:00:09:0f:05"}
+      dhcp4: true
+      optional: true

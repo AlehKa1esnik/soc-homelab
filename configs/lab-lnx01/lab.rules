@@ -1,0 +1,18 @@
+## /etc/audit/rules.d/lab.rules на lab-lnx01. Загрузка: sudo augenrules --load
+## Правила кладутся в rules.d: auditd собирает из них audit.rules при запуске,
+## прямые правки audit.rules пропадут.
+
+## Команды, запущенные людьми (auid задан при входе), включая sudo и su
+-a always,exit -F arch=b64 -S execve -F auid>=1000 -F auid!=-1 -k audit-wazuh-c
+-a always,exit -F arch=b32 -S execve -F auid>=1000 -F auid!=-1 -k audit-wazuh-c
+
+## Учётки, sudo, SSH, конфиг агента Wazuh: запись (w) и смена атрибутов (a)
+-w /etc/passwd -p w -k audit-wazuh-w
+-w /etc/shadow -p w -k audit-wazuh-w
+-w /etc/sudoers -p w -k audit-wazuh-w
+-w /etc/sudoers.d/ -p w -k audit-wazuh-w
+-w /etc/ssh/sshd_config -p w -k audit-wazuh-w
+-w /var/ossec/etc/ossec.conf -p w -k audit-wazuh-w
+-w /etc/sudoers -p a -k audit-wazuh-a
+-w /etc/ssh/sshd_config -p a -k audit-wazuh-a
+-w /var/ossec/etc/ossec.conf -p a -k audit-wazuh-a

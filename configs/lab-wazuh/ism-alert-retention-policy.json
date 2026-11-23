@@ -1,0 +1,19 @@
+{
+  "policy": {
+    "description": "Lab: delete wazuh-alerts-* older than 60 days",
+    "default_state": "retention_state",
+    "states": [
+      {
+        "name": "retention_state",
+        "actions": [],
+        "transitions": [ { "state_name": "delete_alerts", "conditions": { "min_index_age": "60d" } } ]
+      },
+      {
+        "name": "delete_alerts",
+        "actions": [ { "retry": { "count": 3, "backoff": "exponential", "delay": "1m" }, "delete": {} } ],
+        "transitions": []
+      }
+    ],
+    "ism_template": [ { "index_patterns": ["wazuh-alerts-*"], "priority": 1 } ]
+  }
+}

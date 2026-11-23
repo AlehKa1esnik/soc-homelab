@@ -1,0 +1,14 @@
+<!-- Фрагмент C:\Program Files (x86)\ossec-agent\ossec.conf (lab-ws01, lab-dc01):
+     вставить перед последним </ossec_config>, затем Restart-Service WazuhSvc.
+     По умолчанию агент Windows 4.14.10 читает только Application, Security и System. -->
+  <localfile>
+    <location>Microsoft-Windows-Sysmon/Operational</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+
+  <!-- Из PowerShell/Operational — только 4104 (Script Block Logging) -->
+  <localfile>
+    <location>Microsoft-Windows-PowerShell/Operational</location>
+    <log_format>eventchannel</log_format>
+    <query>Event/System[EventID=4104]</query>
+  </localfile>

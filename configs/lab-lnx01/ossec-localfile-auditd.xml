@@ -1,0 +1,7 @@
+<!-- Фрагмент /var/ossec/etc/ossec.conf агента на lab-lnx01:
+     вставить перед ПОСЛЕДНИМ </ossec_config> (у агента Linux их два), затем
+     sudo systemctl restart wazuh-agent -->
+  <localfile>
+    <log_format>audit</log_format>
+    <location>/var/log/audit/audit.log</location>
+  </localfile>

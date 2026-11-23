@@ -1,0 +1,6 @@
+<!-- Сеть lab: изолированная. Нет <forward> и <ip> — ни интернета, ни доступа к хосту.
+     virsh net-define lab.xml && virsh net-start lab && virsh net-autostart lab -->
+<network>
+  <name>lab</name>
+  <bridge name="virbr10"/>
+</network>

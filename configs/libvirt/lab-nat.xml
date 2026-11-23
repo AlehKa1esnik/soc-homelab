@@ -1,0 +1,19 @@
+<!-- Сеть lab-nat: временный выход в интернет для карт «на горячую».
+     virsh net-define lab-nat.xml && virsh net-start lab-nat && virsh net-autostart lab-nat -->
+<network>
+  <name>lab-nat</name>
+  <forward mode="nat"/>
+  <bridge name="virbr11"/>
+  <ip address="10.10.20.1" netmask="255.255.255.0">
+    <dhcp>
+      <range start="10.10.20.100" end="10.10.20.200"/>
+      <!-- Закреплённые адреса: 10.10.20.1xx, где xx — последний октет адреса в lab.
+           Порядок: lab-ws01, lab-ws02, lab-lnx01, lab-wazuh, lab-kali -->
+      <host mac="52:54:00:09:0f:02" ip="10.10.20.121"/>
+      <host mac="52:54:00:09:0f:03" ip="10.10.20.122"/>
+      <host mac="52:54:00:09:0f:04" ip="10.10.20.130"/>
+      <host mac="52:54:00:09:0f:05" ip="10.10.20.140"/>
+      <host mac="52:54:00:09:0f:06" ip="10.10.20.150"/>
+    </dhcp>
+  </ip>
+</network>
